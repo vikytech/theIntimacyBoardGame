@@ -1,0 +1,22 @@
+{
+  "name": "theintimacyboardgame",
+  "version": "1.0.0",
+  "description": "A perfect game for true Intimacy",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "Intimacy",
+    "couples",
+    "sexlife",
+    "game",
+    "romance"
+  ],
+  "author": "VikyTech",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "passport": "^0.7.0"
+  }
+}
