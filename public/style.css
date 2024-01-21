@@ -312,7 +312,7 @@ dice_one_f6 {
 }
 
 .hidden {
-  /* display: none !important; */
+  display: none !important;
 }
 
 #checkpoint {
