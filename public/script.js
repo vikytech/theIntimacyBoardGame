@@ -106,10 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const oldPosition = currentPlayer.position;
     const newPosition = oldPosition + rollResult;
 
-    // Define snakes and ladders
     const snakesAndLadders = { 32: 1 };
-
-    // Check for snakes and ladders
     if (snakesAndLadders[newPosition]) {
       const moveType = newPosition > oldPosition ? 'Snake' : 'Ladder';
       result.textContent = `${currentPlayer.name} found a ${moveType}! Moving to ${snakesAndLadders[newPosition]}.`;
@@ -150,7 +147,6 @@ document.addEventListener('DOMContentLoaded', function () {
           playerToken.className = `player-token`;
           playerToken.textContent = player.token;
           playerToken.style.backgroundColor = player.color
-          // playerToken.style.transform = "translate(" + index * 25 + "px, 0px)";
           tokens.appendChild(playerToken);
         }
       });
