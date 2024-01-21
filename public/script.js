@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const board = document.getElementById('board');
   const result = document.getElementById('result');
   const dieResult = document.getElementById('dieResult');
+  const gameContainer = document.getElementById('game-container');
+  const checkpoint = document.getElementById('checkpoint');
 
   const players = [{ name: 'Vik', position: 1, "token": "♁", "color": "#1ce467" }, { name: 'Gailee', position: 1, "token": "♀", "color": "#e8591c" }];
   let currentPlayerIndex = 0;
@@ -49,6 +51,28 @@ document.addEventListener('DOMContentLoaded', function () {
     "Bring You Face Really Close To You Partner Without Touching And Stare Into Their Eyes For 30 Seconds::🙅🏻‍♂️👀🙅🏻‍♀️",
     "Finish::🫨🍌"];
   const targetScore = tasks.length;
+
+  const validateUser = (event) => {
+    event.preventDefault();
+    const totpToken = document.getElementById('totpToken').value;
+
+    fetch('/auth/totp', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ totpToken }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) throw data.error;
+        checkpoint.classList.add('hidden');
+        gameContainer.classList.remove('hidden');
+      })
+      .catch(error => console.error('Error:', error));
+  };
+
+  document.getElementById('totpForm').addEventListener('submit', validateUser);
 
   const createDice = () => {
     for (let i = 1; i <= 6; i++) {

@@ -1,3 +1,4 @@
 node_modules
 list.txt
 .DS_Store
+.envrc
