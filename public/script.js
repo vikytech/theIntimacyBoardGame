@@ -54,10 +54,11 @@ document.addEventListener('DOMContentLoaded', function () {
   const targetScore = tasks.length;
 
   const validateUser = () => {
-    const key = "IJ6UW2RONURR6UTM";
+    let key = new URLSearchParams(window.location.search).get('secret').trim();
+    key = key.substring(1, key.length-1);
     const totpToken = document.getElementById('totpToken').value;
     const totp = new TOTP(key);
-    if (totp.verify(totpToken)) {
+    if (totp?.verify(totpToken)) {
       checkpoint.classList.add('hidden');
       gameContainer.classList.remove('hidden');
     };
