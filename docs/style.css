@@ -20,6 +20,7 @@ body {
   transition: all 0.3s linear;
   background-image: url("/background.svg");
   background-size: 200px;
+  max-width: 75vw;
 }
 
 #game-container {
