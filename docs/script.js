@@ -54,8 +54,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const targetScore = tasks.length;
 
   const validateUser = () => {
-    let key = new URLSearchParams(window.location.search).get('secret').trim();
-    key = key.substring(1, key.length-1);
+    let key = new URLSearchParams(window.location.search).get('secret')?.trim();
+    key = key?.substring(1, key.length-1);
     const totpToken = document.getElementById('totpToken').value;
     const totp = new TOTP(key);
     if (totp?.verify(totpToken)) {
