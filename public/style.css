@@ -18,6 +18,8 @@ body {
   background-color: #f0f0f0;
   background-size: 200px;
   transition: all 0.3s linear;
+  background-image: url("/background.svg");
+  background-size: 200px;
 }
 
 #game-container {
@@ -315,23 +317,19 @@ dice_one_f6 {
   display: none !important;
 }
 
-#checkpoint {
-  width: 100%;
+#checkpoint {  
   height: 100%;
+  width: 100%;
   position: absolute;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  flex-flow: column nowrap;
+  font-size: 1.5rem;
 }
 
-#totpForm {
-  display: flex;
-  height: 30%;
-  width: 50%;
-  align-items: center;
-  justify-content: space-around;
-  position: absolute;
-  flex-flow: column nowrap;
+#totpToken {
+  margin: 50px;
 }
 
 @media only screen and (min-device-width: 380px) and (max-device-width: 920px) {

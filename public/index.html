@@ -11,11 +11,9 @@
 
 <body>
   <div id="checkpoint">
-    <form id="totpForm">
-      <label for="totpToken">Enter TOTP Token:</label>
-      <input type="text" id="totpToken" name="totpToken" required>
-      <button type="submit">Authenticate</button>
-    </form>
+    <label for="totpToken">Who the hell are you 👀</label>
+    <input type="text" id="totpToken" name="totpToken" required>
+    <button type="submit" id="totpTokenButton">Authenticate</button>
   </div>
   <div id="game-container" class="hidden">
     <div class="header">
@@ -28,6 +26,7 @@
     <div id="board">
     </div>
   </div>
+  <script src="totp.min.js"></script>
   <script src="script.js"></script>
 </body>
 

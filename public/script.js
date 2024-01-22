@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const dieResult = document.getElementById('dieResult');
   const gameContainer = document.getElementById('game-container');
   const checkpoint = document.getElementById('checkpoint');
+  const totpTokenButton = document.getElementById('totpTokenButton');
 
   const players = [{ name: 'Vik', position: 1, "token": "♁", "color": "#1ce467" }, { name: 'Gailee', position: 1, "token": "♀", "color": "#e8591c" }];
   let currentPlayerIndex = 0;
@@ -52,27 +53,17 @@ document.addEventListener('DOMContentLoaded', function () {
     "Finish::🫨🍌"];
   const targetScore = tasks.length;
 
-  const validateUser = (event) => {
-    event.preventDefault();
+  const validateUser = () => {
+    const key = "IJ6UW2RONURR6UTM";
     const totpToken = document.getElementById('totpToken').value;
-
-    fetch('/auth/totp', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ totpToken }),
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.error) throw data.error;
-        checkpoint.classList.add('hidden');
-        gameContainer.classList.remove('hidden');
-      })
-      .catch(error => console.error('Error:', error));
+    const totp = new TOTP(key);
+    if (totp.verify(totpToken)) {
+      checkpoint.classList.add('hidden');
+      gameContainer.classList.remove('hidden');
+    };
   };
 
-  document.getElementById('totpForm').addEventListener('submit', validateUser);
+  totpTokenButton.addEventListener('click', validateUser);
 
   const createDice = () => {
     for (let i = 1; i <= 6; i++) {
