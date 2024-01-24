@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const rollDie = () => {
     const randomDiceNumber = Math.floor((Math.random() * 6) + 1);
     const dice = document.querySelector('.dice_one_f' + randomDiceNumber);
-    const audio = new Audio((src = "https://bit.ly/dice-sound"));
+    const audio = new Audio((src = "/dice-sound.mp3"));
     const elements = document.querySelectorAll('.dice');
     for (var i = 0; i < elements.length; i++) {
       elements[i].classList.remove('active_dice');
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   const showWinner = (winningPlayer) => {
-    const winnerAudio = new Audio(src = "https://cdn.pixabay.com/download/audio/2022/03/10/audio_1dface9538.mp3?filename=touching-46084.mp3");
+    const winnerAudio = new Audio(src = "/end-game.mp3");
     rollButton.disabled = true;
     dieResult.style.cursor = "not-allowed";
     dieResult.removeEventListener('click', movePlayer);
