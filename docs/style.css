@@ -88,6 +88,9 @@ body {
   flex-flow: row wrap;
   justify-content: space-around;
   width: 70%;
+}
+
+.currentPlayer .cell-active-players {
   animation-duration: 1.5s;
   animation-name: zoom-in-out;
   animation-iteration-count: infinite;
