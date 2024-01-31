@@ -17,9 +17,8 @@ body {
   padding: 0;
   background-color: #f0f0f0;
   background-size: 200px;
-  transition: all 0.3s linear;
+  transition: all 5s linear;
   background-image: url("/background.svg");
-  background-size: 200px;
   max-width: 75vw;
 }
 
@@ -60,6 +59,7 @@ body {
   flex-flow: column wrap;
   height: 200px;
   width: 250px;
+  cursor: grabbing;
   z-index: 1;
 }
 
@@ -88,6 +88,18 @@ body {
   flex-flow: row wrap;
   justify-content: space-around;
   width: 70%;
+  animation-duration: 1.5s;
+  animation-name: zoom-in-out;
+  animation-iteration-count: infinite;
+  transform: rotate(180deg);
+}
+
+.currentPlayer {
+  animation-duration: 1s;
+  animation-name: zoom-in-out;
+  animation-iteration-count: 1;
+  transform: scale(1.5);
+  z-index: 2;
 }
 
 .player-token {
@@ -187,7 +199,7 @@ dice_one_f6 {
 
 .active_dice {
   z-index: 1;
-  animation: "dice-roll 1s";
+  animation: dice-roll 1s;
 }
 
 .dice_one_f1,
@@ -314,11 +326,22 @@ dice_one_f6 {
   }
 }
 
+@keyframes zoom-in-out {
+  40% {
+    transform: scale(0.5);
+    z-index: 2;
+  }
+  100% {
+    transform: scale(1.5);
+    z-index: 2;
+  }
+}
+
 .hidden {
   display: none !important;
 }
 
-#checkpoint {  
+#checkpoint {
   height: 100%;
   width: 100%;
   position: absolute;

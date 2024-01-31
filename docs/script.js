@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const checkpoint = document.getElementById('checkpoint');
   const totpTokenButton = document.getElementById('totpTokenButton');
 
-  const players = [{ name: 'Vik', position: 1, "token": "♁", "color": "#1ce467" }, { name: 'Gailee', position: 1, "token": "♀", "color": "#e8591c" }];
+  const players = [{ index: 1, name: 'Vik', position: 1, "token": "♁", "color": "#1ce467" }, { index: 2, name: 'Gailee', position: 1, "token": "♀", "color": "#e8591c" }];
   let currentPlayerIndex = 0;
   const tasks = ["Start ✊🏻💦🍑🤌🏻🌚🚺🚹🚻♂︎♁♀︎⚤",
     "Breast Massage For 2 Minutes::🙌🏻",
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const validateUser = () => {
     let key = new URLSearchParams(window.location.search).get('secret')?.trim();
-    key = key?.substring(1, key.length-1);
+    key = key?.substring(1, key.length - 1);
     const totpToken = document.getElementById('totpToken').value;
     const totp = new TOTP(key);
     if (totp?.verify(totpToken)) {
@@ -97,6 +97,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const currentPlayer = players[currentPlayerIndex];
     const oldPosition = currentPlayer.position;
     const newPosition = oldPosition + rollResult;
+    const cells = document.querySelectorAll('.cell');
+    const currentPlayerToken = document.getElementById(`player-token-${currentPlayer.index}`);
+    currentPlayerToken.remove()
 
     const snakesAndLadders = { 32: 1 };
     if (snakesAndLadders[newPosition]) {
@@ -108,7 +111,14 @@ document.addEventListener('DOMContentLoaded', function () {
       result.textContent = `${currentPlayer.name} rolled a ${rollResult}.`;
     }
 
-    renderBoard();
+    cells.forEach((cell) => {
+      cell.classList.remove('currentPlayer');
+      if (cell.id.substring(4) === currentPlayer.position.toString()) {
+        cell.classList.add('currentPlayer');
+        const tokenContainer = cell.childNodes[1];
+        tokenContainer.appendChild(currentPlayerToken);
+      }
+    });
 
     if (currentPlayer.position >= targetScore) {
       showWinner(currentPlayer);
@@ -126,6 +136,8 @@ document.addEventListener('DOMContentLoaded', function () {
     for (let i = 1; i <= targetScore; i++) {
       const cell = document.createElement('div');
       const text = document.createElement('p');
+
+      cell.id = 'cell' + i;
       cell.className = 'cell';
       text.textContent = tasks[i - 1] + " (" + i + ")";
       cell.appendChild(text);
