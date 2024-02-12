@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       cell.id = 'cell' + i;
       cell.className = 'cell';
-      text.textContent = tasks[i - 1] + " (" + i + ")";
+      text.textContent = tasks[i - 1];
       cell.appendChild(text);
 
       const tokens = document.createElement('div');

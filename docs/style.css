@@ -12,14 +12,16 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   margin: 0;
-  padding: 0;
-  background-color: #f0f0f0;
+  background-color: #f2f2f2;
+  font-family: Arial, sans-serif;
   background-size: 200px;
-  transition: all 5s linear;
+  transition: all 1s linear;
   background-image: url("/background.svg");
-  max-width: 75vw;
 }
 
 #game-container {
@@ -31,51 +33,51 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-image: url("/background.svg");
   background-size: 200px;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-around;
-  align-items: center;
 }
 
 #board {
-  margin-top: 20px;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
   position: relative;
   align-items: center;
-  width: 60vw;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 10px;
+  width: 75%;
+  height: 100%;
+  margin: 20px auto;
 }
 
 .cell {
   border: 1px solid #ccc;
-  padding: 20px;
-  text-align: center;
   font-size: 16px;
   font-weight: bold;
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  flex-flow: column wrap;
-  height: 200px;
-  width: 250px;
-  cursor: grabbing;
-  z-index: 1;
-}
-
-.cell::after {
-  content: "";
-  font-size: 4rem;
-  position: absolute;
-  z-index: -1;
-  filter: drop-shadow(2px 4px 6px black);
-  filter: blur(1px);
+  filter: blur(2px);
   background: linear-gradient(
     127deg,
     rgba(69, 123, 226, 1) 0%,
     rgba(166, 102, 236, 1) 35%,
     rgba(120, 213, 95, 1) 100%
   );
+  padding: 20px;
+  min-height: 170px;
+  min-width: 125px;
+  z-index: 1;
+  cursor: grabbing;
+  background-color: #d1d1d1;
+  display: flex;
+  flex-flow: column wrap;
+  text-align: center;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 5px;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+.cell::after {
+  content: "";
+  font-size: 4rem;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -88,6 +90,10 @@ body {
   flex-flow: row wrap;
   justify-content: space-around;
   width: 70%;
+}
+
+.cell:hover {
+  background-color: #e1e1e1;
 }
 
 .currentPlayer .cell-active-players {
@@ -103,6 +109,7 @@ body {
   animation-iteration-count: 1;
   transform: scale(1.5);
   z-index: 2;
+  filter: drop-shadow(2px 4px 6px black);
 }
 
 .player-token {
