@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (totp?.verify(totpToken)) {
       checkpoint.classList.add('hidden');
       gameContainer.classList.remove('hidden');
-      landscapeContainer.classList.remove('hidden');
+      landscapeContainer[0].classList.remove('hidden');
     };
   };
 
