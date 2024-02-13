@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const players = [{ index: 1, name: 'Vik', position: 1, "token": "♁", "color": "#1ce467" }, { index: 2, name: 'Gailee', position: 1, "token": "♀", "color": "#e8591c" }];
   let currentPlayerIndex = 0;
-  const tasks = ["Start ✊🏻💦🍑🤌🏻🌚🚺🚹🚻♂︎♁♀︎⚤",
+  const tasks = ["Start::🍑🤌🏻🌚",
     "Breast Massage For 2 Minutes::🙌🏻",
     "Sing A Song And Give Me A Lap Dance::💃🏻",
     "Pretend To Walk On A Ramp And Pout For Cameras::📸🤳🏻",
@@ -139,7 +139,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
       cell.id = 'cell' + i;
       cell.className = 'cell';
-      text.textContent = tasks[i - 1];
+      const textContent = tasks[i - 1].split("::");
+      const title = textContent[0];
+      const emojis = textContent[1];
+      text.textContent = title;
+      cell.setAttribute("data-emojis", emojis);
       cell.appendChild(text);
 
       const tokens = document.createElement('div');

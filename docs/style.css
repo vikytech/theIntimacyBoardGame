@@ -51,7 +51,6 @@ body {
   font-size: 16px;
   font-weight: bold;
   position: relative;
-  filter: blur(2px);
   background: linear-gradient(
     127deg,
     rgba(69, 123, 226, 1) 0%,
@@ -76,14 +75,12 @@ body {
 }
 
 .cell::after {
-  content: "";
+  content: attr(data-emojis);
   font-size: 4rem;
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   z-index: -1;
+  filter: blur(1.5px);
+  bottom: 0;
 }
 
 .cell-active-players {
@@ -91,7 +88,7 @@ body {
   flex-flow: row wrap;
   justify-content: space-around;
   width: 70%;
-  animation: bounce 3s 300ms;
+  animation: bounce 2s 300ms;
   animation-iteration-count: 1;
   transform-origin: center bottom;
 }
@@ -100,10 +97,15 @@ body {
   background-color: #e1e1e1;
 }
 
+.currentPlayer.cell::after {
+  animation: heart-beat 1.3s 2s ease-in-out forwards;
+  animation-iteration-count: 2;
+  filter: none;
+}
+
 .currentPlayer .cell-active-players {
   animation-duration: 1.5s;
   animation-iteration-count: infinite;
-  transform: rotate(180deg);
 }
 
 .currentPlayer {
@@ -316,7 +318,6 @@ dice_one_f6 {
 .dice_one_f6 :nth-child(6) {
   grid-area: 3/3/3;
 }
-
 
 .hidden {
   display: none !important;
