@@ -115,6 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
       cell.classList.remove('currentPlayer');
       if (cell.id.substring(4) === currentPlayer.position.toString()) {
         cell.classList.add('currentPlayer');
+        cell.scrollIntoView();
         const tokenContainer = cell.childNodes[1];
         tokenContainer.appendChild(currentPlayerToken);
       }
