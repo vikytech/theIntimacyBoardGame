@@ -101,13 +101,13 @@
     transform: scale(4);
     filter: none;
     z-index: 4;
-}
+  }
 
-28% {
+  28% {
     transform: scale(1);
-}
+  }
 
-42% {
+  42% {
     transform: scale(4);
     z-index: 4;
     filter: none;
@@ -115,5 +115,17 @@
 
   70% {
     transform: scale(1);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-90deg);
+  }
+  100% {
+    transform: rotate(-90deg);
   }
 }

@@ -11,12 +11,18 @@
 </head>
 
 <body>
+  <div class="switch-to-landscape">
+    <div class="phone"></div>
+    <span>Please rotate your device! 🔄</span>
+  </div>
+
   <div id="checkpoint">
     <label for="totpToken">Who the hell are you !? 👀</label>
     <input type="text" id="totpToken" name="totpToken" autocomplete="one-time-code" required>
-    <button type="submit" id="totpTokenButton" >Verify now!</button>
+    <button type="submit" id="totpTokenButton">Verify now!</button>
   </div>
   <div id="game-container" class="hidden">
+    <button id="fullscreen-toggle-button" class="enter-fullscreen"></button>
     <div class="header">
       <h1>The Ultimate Intimacy Game 🍌🍆👅✊🏻💦🍑🖕🏻🤌🏻🌚 🩷💜♋️🔞♨️⚧️🚼🚺🚹🚻🎦♂︎♁♀︎⚤</h1>
       <div id="result"></div>

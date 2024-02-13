@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   const rollButton = document.getElementById('roll-button');
   const resetButton = document.getElementById('reset-button');
+  const fullScreenButton = document.getElementById('fullscreen-toggle-button');
   const board = document.getElementById('board');
   const result = document.getElementById('result');
   const dieResult = document.getElementById('dieResult');
@@ -187,8 +188,43 @@ document.addEventListener('DOMContentLoaded', function () {
     renderBoard();
   };
 
+  const toggleFullscreen = () => {
+    const body = document.documentElement;
+    if (
+      (document.fullScreenElement !== undefined && document.fullScreenElement === null)
+      || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null)
+      || (document.mozFullScreen !== undefined && !document.mozFullScreen)
+      || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)
+    ) {
+      if (body.requestFullScreen) {
+        body.requestFullScreen();
+      } else if (body.mozRequestFullScreen) {
+        body.mozRequestFullScreen();
+      } else if (body.webkitRequestFullScreen) {
+        body.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+      } else if (body.msRequestFullscreen) {
+        body.msRequestFullscreen();
+      }
+      fullScreenButton.classList.remove("enter-fullscreen");
+      fullScreenButton.classList.add("exit-fullscreen");
+    } else {
+      if (document.cancelFullScreen) {
+        document.cancelFullScreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.webkitCancelFullScreen) {
+        document.webkitCancelFullScreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+      fullScreenButton.classList.add("enter-fullscreen");
+      fullScreenButton.classList.remove("exit-fullscreen");
+    }
+  };
+
   resetButton.addEventListener('click', resetGame);
 
   renderBoard();
   createDice();
+  fullScreenButton.addEventListener('click', toggleFullscreen);
 });
