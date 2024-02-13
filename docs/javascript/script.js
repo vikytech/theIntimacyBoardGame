@@ -1,18 +1,24 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const rollButton = document.getElementById('roll-button');
-  const resetButton = document.getElementById('reset-button');
-  const fullScreenButton = document.getElementById('fullscreen-toggle-button');
-  const landscapeContainer = document.getElementsByClassName('switch-to-landscape');
-  const board = document.getElementById('board');
-  const result = document.getElementById('result');
-  const dieResult = document.getElementById('dieResult');
-  const gameContainer = document.getElementById('game-container');
-  const checkpoint = document.getElementById('checkpoint');
-  const totpTokenButton = document.getElementById('totpTokenButton');
+document.addEventListener("DOMContentLoaded", function () {
+  const rollButton = document.getElementById("roll-button");
+  const resetButton = document.getElementById("reset-button");
+  const fullScreenButton = document.getElementById("fullscreen-toggle-button");
+  const landscapeContainer = document.getElementsByClassName(
+    "switch-to-landscape"
+  );
+  const board = document.getElementById("board");
+  const result = document.getElementById("result");
+  const dieResult = document.getElementById("dieResult");
+  const gameContainer = document.getElementById("game-container");
+  const checkpoint = document.getElementById("checkpoint");
+  const totpTokenButton = document.getElementById("totpTokenButton");
 
-  const players = [{ index: 1, name: 'Vik', position: 1, "token": "♁", "color": "#1ce467" }, { index: 2, name: 'Gailee', position: 1, "token": "♀", "color": "#e8591c" }];
+  const players = [
+    { index: 1, name: "Vik", position: 1, token: "♁", color: "#1ce467" },
+    { index: 2, name: "Gailee", position: 1, token: "♀", color: "#e8591c" },
+  ];
   let currentPlayerIndex = 0;
-  const tasks = ["Start::🍑🤌🏻🌚",
+  const tasks = [
+    "Start::🍑🤌🏻🌚",
     "Breast Massage For 2 Minutes::🙌🏻",
     "Sing A Song And Give Me A Lap Dance::💃🏻",
     "Pretend To Walk On A Ramp And Pout For Cameras::📸🤳🏻",
@@ -52,29 +58,30 @@ document.addEventListener('DOMContentLoaded', function () {
     "Pretend I Am A Stranger At A Bar, Try To Pick Me Up & Convince Me To Come Home With You::🥰🏠",
     "Blindfold Me And Then Give A Lick Vagina Or Cock For 2-5 Minutes in a Fast Phase::👅😋",
     "Bring You Face Really Close To You Partner Without Touching And Stare Into Their Eyes For 30 Seconds::🙅🏻‍♂️👀🙅🏻‍♀️",
-    "Finish::🫨🍌"];
+    "Finish::🫨🍌",
+  ];
   const targetScore = tasks.length;
 
   const validateUser = () => {
-    let key = new URLSearchParams(window.location.search).get('secret')?.trim();
+    let key = new URLSearchParams(window.location.search).get("secret")?.trim();
     key = key?.substring(1, key.length - 1);
-    const totpToken = document.getElementById('totpToken').value;
+    const totpToken = document.getElementById("totpToken").value;
     const totp = new TOTP(key);
     if (totp?.verify(totpToken)) {
-      checkpoint.classList.add('hidden');
-      gameContainer.classList.remove('hidden');
-      landscapeContainer[0].classList.remove('hidden');
-    };
+      checkpoint.classList.add("hidden");
+      gameContainer.classList.remove("hidden");
+      landscapeContainer[0].classList.remove("hidden");
+    }
   };
 
-  totpTokenButton.addEventListener('click', validateUser);
+  totpTokenButton.addEventListener("click", validateUser);
 
   const createDice = () => {
     for (let i = 1; i <= 6; i++) {
-      const dice = document.createElement('div');
-      dice.setAttribute("class", "dice diceGrid dice_one_f" + i)
+      const dice = document.createElement("div");
+      dice.setAttribute("class", "dice diceGrid dice_one_f" + i);
       for (let j = 0; j < i; j++) {
-        const dot = document.createElement('p');
+        const dot = document.createElement("p");
         dot.setAttribute("class", "dot");
         dice.appendChild(dot);
       }
@@ -83,14 +90,14 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   const rollDie = () => {
-    const randomDiceNumber = Math.floor((Math.random() * 6) + 1);
-    const dice = document.querySelector('.dice_one_f' + randomDiceNumber);
+    const randomDiceNumber = Math.floor(Math.random() * 6 + 1);
+    const dice = document.querySelector(".dice_one_f" + randomDiceNumber);
     const audio = new Audio((src = "/audio/dice-sound.mp3"));
-    const elements = document.querySelectorAll('.dice');
+    const elements = document.querySelectorAll(".dice");
     for (var i = 0; i < elements.length; i++) {
-      elements[i].classList.remove('active_dice');
+      elements[i].classList.remove("active_dice");
     }
-    dice.classList.add("active_dice")
+    dice.classList.add("active_dice");
     audio.play();
     return randomDiceNumber;
   };
@@ -100,13 +107,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const currentPlayer = players[currentPlayerIndex];
     const oldPosition = currentPlayer.position;
     const newPosition = oldPosition + rollResult;
-    const cells = document.querySelectorAll('.cell');
-    const currentPlayerToken = document.getElementById(`player-token-${currentPlayer.index}`);
-    currentPlayerToken.remove()
+    const cells = document.querySelectorAll(".cell");
+    const currentPlayerToken = document.getElementById(
+      `player-token-${currentPlayer.index}`
+    );
+    currentPlayerToken.remove();
 
     const snakesAndLadders = { 32: 1 };
     if (snakesAndLadders[newPosition]) {
-      const moveType = newPosition > oldPosition ? 'Snake' : 'Ladder';
+      const moveType = newPosition > oldPosition ? "Snake" : "Ladder";
       result.textContent = `${currentPlayer.name} found a ${moveType}! Moving to ${snakesAndLadders[newPosition]}.`;
       currentPlayer.position = snakesAndLadders[newPosition];
     } else {
@@ -114,35 +123,42 @@ document.addEventListener('DOMContentLoaded', function () {
       result.textContent = `${currentPlayer.name} rolled a ${rollResult}.`;
     }
 
+    const move = (cell) => {
+      cell.classList.add("currentPlayer");
+      cell.scrollIntoView();
+      const tokenContainer = cell.childNodes[1];
+      tokenContainer.appendChild(currentPlayerToken);
+    };
+
     cells.forEach((cell) => {
-      cell.classList.remove('currentPlayer');
+      cell.classList.remove("currentPlayer");
       if (cell.id.substring(4) === currentPlayer.position.toString()) {
-        cell.classList.add('currentPlayer');
-        cell.scrollIntoView();
-        const tokenContainer = cell.childNodes[1];
-        tokenContainer.appendChild(currentPlayerToken);
+        move(cell);
       }
     });
 
     if (currentPlayer.position >= targetScore) {
+      currentPlayerToken.remove();
+      const lastCell = cells[targetScore - 1];
+      move(lastCell);
       showWinner(currentPlayer);
     } else {
       currentPlayerIndex = 1 - currentPlayerIndex;
     }
   };
 
-  dieResult.addEventListener('click', movePlayer);
-  rollButton.addEventListener('click', movePlayer);
+  dieResult.addEventListener("click", movePlayer);
+  rollButton.addEventListener("click", movePlayer);
 
   const renderBoard = () => {
-    board.innerHTML = '';
+    board.innerHTML = "";
 
     for (let i = 1; i <= targetScore; i++) {
-      const cell = document.createElement('div');
-      const text = document.createElement('p');
+      const cell = document.createElement("div");
+      const text = document.createElement("p");
 
-      cell.id = 'cell' + i;
-      cell.className = 'cell';
+      cell.id = "cell" + i;
+      cell.className = "cell";
       const textContent = tasks[i - 1].split("::");
       const title = textContent[0];
       const emojis = textContent[1];
@@ -150,15 +166,15 @@ document.addEventListener('DOMContentLoaded', function () {
       cell.setAttribute("data-emojis", emojis);
       cell.appendChild(text);
 
-      const tokens = document.createElement('div');
-      tokens.className = "cell-active-players"
+      const tokens = document.createElement("div");
+      tokens.className = "cell-active-players";
       players.forEach((player, index) => {
         if (player.position === i) {
-          const playerToken = document.createElement('div');
+          const playerToken = document.createElement("div");
           playerToken.id = `player-token-${index + 1}`;
           playerToken.className = `player-token`;
           playerToken.textContent = player.token;
-          playerToken.style.backgroundColor = player.color
+          playerToken.style.backgroundColor = player.color;
           tokens.appendChild(playerToken);
         }
       });
@@ -169,34 +185,37 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   const showWinner = (winningPlayer) => {
-    const winnerAudio = new Audio(src = "/audio/end-game.mp3");
+    const winnerAudio = new Audio((src = "/audio/end-game.mp3"));
     rollButton.disabled = true;
     dieResult.style.cursor = "not-allowed";
-    dieResult.removeEventListener('click', movePlayer);
+    dieResult.removeEventListener("click", movePlayer);
     result.textContent = `${winningPlayer.name} wins!`;
     winnerAudio.play();
   };
 
   const resetGame = () => {
-    players.forEach(player => {
+    players.forEach((player) => {
       player.position = 1;
     });
 
     currentPlayerIndex = 0;
     rollButton.disabled = false;
     dieResult.style.cursor = "pointer";
-    dieResult.addEventListener('click', movePlayer);
-    result.textContent = '';
+    dieResult.addEventListener("click", movePlayer);
+    result.textContent = "";
     renderBoard();
   };
 
   const toggleFullscreen = () => {
     const body = document.documentElement;
     if (
-      (document.fullScreenElement !== undefined && document.fullScreenElement === null)
-      || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null)
-      || (document.mozFullScreen !== undefined && !document.mozFullScreen)
-      || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)
+      (document.fullScreenElement !== undefined &&
+        document.fullScreenElement === null) ||
+      (document.msFullscreenElement !== undefined &&
+        document.msFullscreenElement === null) ||
+      (document.mozFullScreen !== undefined && !document.mozFullScreen) ||
+      (document.webkitIsFullScreen !== undefined &&
+        !document.webkitIsFullScreen)
     ) {
       if (body.requestFullScreen) {
         body.requestFullScreen();
@@ -224,9 +243,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   };
 
-  resetButton.addEventListener('click', resetGame);
+  resetButton.addEventListener("click", resetGame);
 
   renderBoard();
   createDice();
-  fullScreenButton.addEventListener('click', toggleFullscreen);
+  fullScreenButton.addEventListener("click", toggleFullscreen);
 });
