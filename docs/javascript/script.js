@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const rollButton = document.getElementById('roll-button');
   const resetButton = document.getElementById('reset-button');
   const fullScreenButton = document.getElementById('fullscreen-toggle-button');
+  const landscapeContainer = document.getElementsByClassName('switch-to-landscape');
   const board = document.getElementById('board');
   const result = document.getElementById('result');
   const dieResult = document.getElementById('dieResult');
@@ -62,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (totp?.verify(totpToken)) {
       checkpoint.classList.add('hidden');
       gameContainer.classList.remove('hidden');
+      landscapeContainer.classList.remove('hidden');
     };
   };
 
