@@ -72,6 +72,7 @@ body {
   border-radius: 5px;
   box-sizing: border-box;
   user-select: none;
+  animation: rubber-band 1s 300ms forwards;
 }
 
 .cell::after {
@@ -90,6 +91,9 @@ body {
   flex-flow: row wrap;
   justify-content: space-around;
   width: 70%;
+  animation: bounce 3s 300ms;
+  animation-iteration-count: 1;
+  transform-origin: center bottom;
 }
 
 .cell:hover {
@@ -98,7 +102,6 @@ body {
 
 .currentPlayer .cell-active-players {
   animation-duration: 1.5s;
-  animation-name: zoom-in-out;
   animation-iteration-count: infinite;
   transform: rotate(180deg);
 }
@@ -314,38 +317,6 @@ dice_one_f6 {
   grid-area: 3/3/3;
 }
 
-@keyframes dice-roll {
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-
-  10%,
-  30%,
-  50%,
-  70%,
-  90% {
-    transform: translate3d(-20%, 0%, 0);
-  }
-
-  20%,
-  40%,
-  60%,
-  80% {
-    transform: translate3d(20%, -5%, 0);
-  }
-}
-
-@keyframes zoom-in-out {
-  40% {
-    transform: scale(0.5);
-    z-index: 2;
-  }
-  100% {
-    transform: scale(1.5);
-    z-index: 2;
-  }
-}
 
 .hidden {
   display: none !important;
