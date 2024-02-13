@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const rollDie = () => {
     const randomDiceNumber = Math.floor((Math.random() * 6) + 1);
     const dice = document.querySelector('.dice_one_f' + randomDiceNumber);
-    const audio = new Audio((src = "/dice-sound.mp3"));
+    const audio = new Audio((src = "/audio/dice-sound.mp3"));
     const elements = document.querySelectorAll('.dice');
     for (var i = 0; i < elements.length; i++) {
       elements[i].classList.remove('active_dice');
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   const showWinner = (winningPlayer) => {
-    const winnerAudio = new Audio(src = "/end-game.mp3");
+    const winnerAudio = new Audio(src = "/audio/end-game.mp3");
     rollButton.disabled = true;
     dieResult.style.cursor = "not-allowed";
     dieResult.removeEventListener('click', movePlayer);
