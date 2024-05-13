@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const landscapeContainer = document.getElementsByClassName(
     "switch-to-landscape"
   );
+  const player2NameElement = document.getElementById("player2Name");
+  const player2NameLabel = document.getElementById("player2NameLabel");
   const board = document.getElementById("board");
   const result = document.getElementById("result");
   const dieResult = document.getElementById("dieResult");
@@ -14,10 +16,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const players = [
     { index: 1, name: "Vik", position: 1, token: "♁", color: "#1ce467" },
-    { index: 2, name: "Gailee", position: 1, token: "♀", color: "#e8591c" },
+    { index: 2, name: "Vik's Partner", position: 1, token: "♀", color: "#e8591c" },
   ];
   let currentPlayerIndex = 0;
-  var encodedTasks = [];
   const tasks = [
     "U3RhcnQ6OvCfjZHwn6SM8J+Pu/CfjJo=",
     "QnJlYXN0IE1hc3NhZ2UgRm9yIDIgTWludXRlczo68J+ZjPCfj7s=",
@@ -60,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "QmxpbmRmb2xkIE1lIEFuZCBUaGVuIEdpdmUgQSBMaWNrIFZhZ2luYSBPciBDb2NrIEZvciAyLTUgTWludXRlcyBpbiBhIEZhc3QgUGhhc2U6OvCfkYXwn5iL",
     "QnJpbmcgWW91IEZhY2UgUmVhbGx5IENsb3NlIFRvIFlvdSBQYXJ0bmVyIFdpdGhvdXQgVG91Y2hpbmcgQW5kIFN0YXJlIEludG8gVGhlaXIgRXllcyBGb3IgMzAgU2Vjb25kczo68J+ZhfCfj7vigI3imYLvuI/wn5GA8J+ZhfCfj7vigI3imYDvuI8=",
     "RmluaXNoOjrwn6uo8J+NjA=="
-];
+  ];
   const targetScore = tasks.length;
 
   const validateUser = () => {
@@ -249,4 +250,10 @@ document.addEventListener("DOMContentLoaded", function () {
   renderBoard();
   createDice();
   fullScreenButton.addEventListener("click", toggleFullscreen);
+
+  player2NameElement.addEventListener("change", function (event) {
+    const name = this.value;
+    players[1].name = name;
+    player2NameLabel.textContent = "Welcome " + name + " ❤️🤗";
+  });
 });

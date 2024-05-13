@@ -335,8 +335,8 @@ dice_one_f6 {
   font-size: 1.5rem;
 }
 
-#totpToken {
-  margin: 50px;
+#totpToken, #player2Name {
+  margin: 25px;
 }
 
 .switch-to-landscape {

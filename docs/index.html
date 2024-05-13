@@ -18,7 +18,11 @@
   </div>
 
   <div id="checkpoint">
-    <label for="totpToken">Who the hell are you !? 👀</label>
+    <label id="player2NameLabel" for="player2Name">Hey Beautiful ❤️, <br/>What do I call you ?</label>
+    <input type="text" id="player2Name" name="player2Name" required>
+    <label for="totpToken">
+      Secret Code <dotlottie-player src="https://lottie.host/7095066a-f38e-4a48-91bd-4b1d491124a5/hblVPiU1aR.json" background="transparent" speed="0.5" style="width: 50px; height: 50px; display: inline-block; position: relative; top: 10px;" direction="1" playMode="bounce" autoplay></dotlottie-player>
+    </label>
     <input type="text" id="totpToken" name="totpToken" autocomplete="one-time-code" required>
     <button type="submit" id="totpTokenButton">Verify now!</button>
   </div>
@@ -34,6 +38,7 @@
     <div id="board">
     </div>
   </div>
+  <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
   <script src="javascript/base64.min.js"></script>
   <script src="javascript/totp.min.js"></script>
   <script src="javascript/script.js"></script>
